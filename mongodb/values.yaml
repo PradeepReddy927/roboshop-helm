@@ -1,6 +1,5 @@
 deployment:
   imageRepo: pradeepreddy90/mongodb
   imageVersion: v1
-
-service: 
-  type: clusterIP
+service:
+  type: ClusterIP

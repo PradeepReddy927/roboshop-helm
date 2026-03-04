@@ -3,13 +3,13 @@ kind: Service
 metadata:
   name: mongodb
   namespace: roboshop
-spec: 
+spec:
   type: {{ .Values.service.type }}
-  selector: 
-   project: roboshop
-   component: mongodb
-   tier: db
-  ports: 
-      - protocol: TCP
-        port: 27017 # service Port
-        targetPort: 27017  # Container Port
+  selector:
+    project: roboshop
+    component: mongodb
+    tier: db
+  ports:
+    - protocol: TCP
+      port: 27017 # service port
+      targetPort: 27017 # container port

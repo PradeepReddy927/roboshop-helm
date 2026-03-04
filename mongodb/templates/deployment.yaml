@@ -3,39 +3,38 @@ kind: Deployment
 metadata:
   name: mongodb
   namespace: roboshop
-  # Thses are replica set labels
+  # these are replica set labels
   labels:
     project: roboshop
     component: mongodb
     tier: db
-spec: 
+spec:
   replicas: 1
   selector:
-    # These labels are used to select pods
+    # these labels are used to select pods
     matchLabels:
-       project: roboshop
-       component: mongodb
-       tier: db
-  # Pod definition    
+      project: roboshop
+      component: mongodb
+      tier: db
+  # pod definition
   template:
     metadata:
       labels:
         project: roboshop
         component: mongodb
         tier: db
-    spec: 
-      containers: 
+    spec:
+      containers:
       - name: mongodb
-        image: "{{ .Values.deployment.imagesRepo }}:{{ .Values.deployment.imageVersion }}"
-        imagePullPolicy: Always 
+        image: "{{ .Values.deployment.imageRepo }}:{{ .Values.deployment.imageVersion }}"
+        imagePullPolicy: Always
         readinessProbe:
           tcpSocket:
             port: 27017
           initialDelaySeconds: 10
-          periodSeconds: 5
+          periodSeconds: 10
         livenessProbe:
-            tcpSocket:
-              port: 27017
-            initialDelaySeconds: 10
-            periodSeconds: 5
----
+          tcpSocket:
+            port: 27017
+          initialDelaySeconds: 5
+          periodSeconds: 5
