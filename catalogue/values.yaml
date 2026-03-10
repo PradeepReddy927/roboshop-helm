@@ -1,0 +1,3 @@
+deployment:
+  imageRepo: pradeepreddy90/catalogue
+  imageVersion: v1

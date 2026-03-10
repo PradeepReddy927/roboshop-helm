@@ -1,0 +1,10 @@
+helm install mongodb .
+level=ERROR msg="release name check failed" error="cannot reuse a name that is still in use"
+Error: INSTALLATION FAILED: release name check failed: cannot reuse a name that is still in use
+
+
+
+solution: 
+     * You are trying to install a Helm chart with a release name that already exists in the cluster.
+     *  But a release named mongodb is already installed.
+     *  Helm does not allow reusing the same release name.
