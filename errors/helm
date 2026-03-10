@@ -8,3 +8,21 @@ solution:
      * You are trying to install a Helm chart with a release name that already exists in the cluster.
      *  But a release named mongodb is already installed.
      *  Helm does not allow reusing the same release name.
+
+
+catalogue Error 
+
+ helm install catalogue . -f values-dev.yaml
+Error: INSTALLATION FAILED: unable to continue with install: Deployment "catalogue" in namespace "roboshop" exists and cannot be imported into the current release: invalid ownership metadata; annotation validation error: key "meta.helm.sh/release-namespace" must equal "roboshop": current value is "default"
+
+error meaning :
+Deployment "catalogue" exists and cannot be imported
+meta.helm.sh/release-namespace must equal "roboshop"
+current value is "default"
+
+solution: 
+Remove the existing resource and install again
+* kubectl delete deployment catalogue -n roboshop
+
+INStall again
+helm install catalogue . -n roboshop -f values-dev.yaml
