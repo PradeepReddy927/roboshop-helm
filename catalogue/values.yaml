@@ -1,3 +1,5 @@
 deployment:
   imageRepo: pradeepreddy90/catalogue
   imageVersion: v1
+service:
+  servicePort: 8080 # default value  

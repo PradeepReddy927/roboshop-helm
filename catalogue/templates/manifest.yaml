@@ -1,8 +1,9 @@
 apiVersion: v1
-kind : ConfigMap
-metadata: 
+kind: ConfigMap
+metadata:
   name: catalogue
-data: 
+  namespace: roboshop
+data:
   MONGO: "true"
   MONGO_URL: {{ .Values.configmap.mongoURL }}
 ---
@@ -11,30 +12,31 @@ kind: Deployment
 metadata:
   name: catalogue
   namespace: roboshop
-  # Thses are replica set labels
+  # these are replica set labels
   labels:
     project: roboshop
     component: catalogue
     tier: backend
-spec: 
+spec:
   replicas: 1
   selector:
-    # These labels are used to select pods
+    # these labels are used to select pods
     matchLabels:
-       project: roboshop
-       component: catalogue
-       tier: backend
-  # Pod definition    
+      project: roboshop
+      component: catalogue
+      tier: backend
+  # pod definition
   template:
     metadata:
       labels:
         project: roboshop
         component: catalogue
         tier: backend
-    spec: 
-      containers: 
+    spec:
+      containers:
       - name: catalogue
-        image: "{{ .Values.deployment.imageRepo}}:{{ .Values.deployment.imageVersion }}"
+        image: "{{ .Values.deployment.imageRepo }}:{{ .Values.deployment.imageVersion}}"
+        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: catalogue
@@ -59,13 +61,12 @@ kind: Service
 metadata:
   name: catalogue
   namespace: roboshop
-spec: 
-  selector: 
-   project: roboshop
-   component: catalogue
-   tier: backend
-  ports: 
+spec:
+  selector:
+    project: roboshop
+    component: catalogue
+    tier: backend
+  ports:
     - protocol: TCP
-      port: 8080 # service Port
-      targetPort: 8080  # Container Port
-        
+      port: {{ .Values.service.servicePort }} # service port
+      targetPort: 8080 # container port
